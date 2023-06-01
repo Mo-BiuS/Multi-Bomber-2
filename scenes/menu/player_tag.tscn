@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://ehm41byf8ho1"]
+
+[ext_resource type="Script" path="res://scenes/menu/player_tag.gd" id="1_1578o"]
+[ext_resource type="Texture2D" uid="uid://b1jqq1w0e24ta" path="res://ressources/player/head/head1.png" id="2_acc2q"]
+[ext_resource type="Texture2D" uid="uid://cwve8axgqq0jh" path="res://ressources/player/body/body1.png" id="3_e21hx"]
+[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="4_6hnpc"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ki6fs"]
+properties/0/path = NodePath("MarginContainer/VBoxContainer/PanelContainer2/playerName:text")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:headId")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:bodyId")
+properties/2/spawn = true
+properties/2/sync = true
+
+[node name="player_tag" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1578o")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="head" type="Sprite2D" parent="MarginContainer/VBoxContainer/PanelContainer"]
+texture_filter = 1
+position = Vector2(60, 60)
+scale = Vector2(6, 6)
+texture = ExtResource("2_acc2q")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="body" type="Sprite2D" parent="MarginContainer/VBoxContainer/PanelContainer"]
+texture_filter = 1
+position = Vector2(60, 60)
+scale = Vector2(6, 6)
+texture = ExtResource("3_e21hx")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="playerName" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_6hnpc")
+theme_override_font_sizes/font_size = 16
+text = "PLACEHOLDER"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ki6fs")
