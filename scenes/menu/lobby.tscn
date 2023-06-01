@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcujhyljjy55s"]
+[gd_scene load_steps=5 format=3 uid="uid://bcujhyljjy55s"]
 
 [ext_resource type="Script" path="res://scenes/menu/lobby.gd" id="1_gu5tv"]
 [ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="2_6sl2w"]
 [ext_resource type="PackedScene" uid="uid://xglex3mh4w4y" path="res://scenes/character_editor.tscn" id="2_8os6c"]
+[ext_resource type="PackedScene" uid="uid://cq4c6kt6wdk8o" path="res://scenes/upnp_menu.tscn" id="4_d86v8"]
 
 [node name="lobby" type="PanelContainer"]
 anchors_preset = 8
@@ -88,11 +89,10 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 
-[node name="mapSelector" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+[node name="upnpMenu" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer" instance=ExtResource("4_d86v8")]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+[node name="start" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Start"
