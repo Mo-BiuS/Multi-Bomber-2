@@ -113,3 +113,4 @@ text = "Start"
 
 [connection signal="bodyChanged" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer/characterEditor" to="." method="_on_character_editor_body_changed"]
 [connection signal="headChanged" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer/characterEditor" to="." method="_on_character_editor_head_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer/start" to="." method="_on_start_pressed"]

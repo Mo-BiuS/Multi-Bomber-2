@@ -8,5 +8,5 @@ func _process(delta):
 		prev.disabled = true
 		next.disabled = true
 
-func getMap()->int:
+func getMapId()->int:
 	return 1
