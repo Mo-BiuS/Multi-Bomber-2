@@ -1,7 +1,7 @@
 extends PanelContainer
 
-@onready var playerTagContener:GridContainer = $MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/GridContainer
-@onready var startButton:Button = $MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/start
+@onready var playerTagContener:GridContainer = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/GridContainer
+@onready var startButton:Button = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer/start
 
 var playerTag = preload("res://scenes/menu/player_tag.tscn")
 

@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://ydp0aqw5mqxf"]
+
+[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="1_30noe"]
+[ext_resource type="Script" path="res://scenes/menu/starting_bonus.gd" id="1_eti7m"]
+
+[sub_resource type="Theme" id="Theme_2hd10"]
+default_font = ExtResource("1_30noe")
+
+[sub_resource type="Theme" id="Theme_4r756"]
+default_font = ExtResource("1_30noe")
+
+[sub_resource type="Theme" id="Theme_c5a02"]
+default_font = ExtResource("1_30noe")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x3fqr"]
+properties/0/path = NodePath("MarginContainer/VBoxContainer/powerSpin:value")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath("MarginContainer/VBoxContainer/speedSpin:value")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath("MarginContainer/VBoxContainer/bombSpin:value")
+properties/2/spawn = true
+properties/2/sync = true
+
+[node name="startingBonus" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -34.0
+offset_right = 66.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eti7m")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_30noe")
+text = "Power"
+
+[node name="powerSpin" type="SpinBox" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_2hd10")
+min_value = 1.0
+max_value = 20.0
+value = 1.0
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_30noe")
+text = "Speed"
+
+[node name="speedSpin" type="SpinBox" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_4r756")
+min_value = 1.0
+max_value = 8.0
+step = 0.25
+value = 1.0
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_30noe")
+text = "Bomb"
+
+[node name="bombSpin" type="SpinBox" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme = SubResource("Theme_c5a02")
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_x3fqr")

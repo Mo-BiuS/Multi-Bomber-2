@@ -1,24 +1,23 @@
 [gd_scene load_steps=5 format=3 uid="uid://xglex3mh4w4y"]
 
-[ext_resource type="Texture2D" uid="uid://b1jqq1w0e24ta" path="res://ressources/player/head/head1.png" id="1_ltddy"]
-[ext_resource type="Script" path="res://scenes/character_editor.gd" id="1_ydaw4"]
-[ext_resource type="Texture2D" uid="uid://cwve8axgqq0jh" path="res://ressources/player/body/body1.png" id="2_g1yo6"]
-[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="3_d1osr"]
+[ext_resource type="Script" path="res://scenes/menu/character_editor.gd" id="1_qlesw"]
+[ext_resource type="Texture2D" uid="uid://b1jqq1w0e24ta" path="res://ressources/player/head/head1.png" id="2_1a0tg"]
+[ext_resource type="Texture2D" uid="uid://cwve8axgqq0jh" path="res://ressources/player/body/body1.png" id="3_xnrs5"]
+[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="4_i54tj"]
 
 [node name="characterEditor" type="VBoxContainer"]
-custom_minimum_size = Vector2(180, 180)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -90.0
+offset_left = -80.0
 offset_top = -124.0
-offset_right = 90.0
+offset_right = 80.0
 offset_bottom = 124.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ydaw4")
+script = ExtResource("1_qlesw")
 
 [node name="PanelContainer3" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(160, 160)
@@ -29,7 +28,7 @@ size_flags_horizontal = 4
 texture_filter = 1
 position = Vector2(80, 80)
 scale = Vector2(8, 8)
-texture = ExtResource("1_ltddy")
+texture = ExtResource("2_1a0tg")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
@@ -37,7 +36,7 @@ region_rect = Rect2(0, 0, 16, 16)
 texture_filter = 1
 position = Vector2(80, 80)
 scale = Vector2(8, 8)
-texture = ExtResource("2_g1yo6")
+texture = ExtResource("3_xnrs5")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
@@ -59,20 +58,20 @@ layout_mode = 2
 [node name="prevHead" type="Button" parent="PanelContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_d1osr")
+theme_override_fonts/font = ExtResource("4_i54tj")
 text = "Prev"
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(56, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_d1osr")
+theme_override_fonts/font = ExtResource("4_i54tj")
 text = "head"
 horizontal_alignment = 1
 
 [node name="nextHead" type="Button" parent="PanelContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_d1osr")
+theme_override_fonts/font = ExtResource("4_i54tj")
 text = "Next"
 
 [node name="PanelContainer2" type="PanelContainer" parent="."]
@@ -92,20 +91,20 @@ layout_mode = 2
 [node name="prevBody" type="Button" parent="PanelContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_d1osr")
+theme_override_fonts/font = ExtResource("4_i54tj")
 text = "Prev"
 
 [node name="Label" type="Label" parent="PanelContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(56, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_d1osr")
+theme_override_fonts/font = ExtResource("4_i54tj")
 text = "Body"
 horizontal_alignment = 1
 
 [node name="nextBody" type="Button" parent="PanelContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_d1osr")
+theme_override_fonts/font = ExtResource("4_i54tj")
 text = "Next"
 
 [connection signal="pressed" from="PanelContainer/MarginContainer2/HBoxContainer/prevHead" to="." method="_on_prev_head_pressed"]

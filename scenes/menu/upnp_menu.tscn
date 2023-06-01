@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cq4c6kt6wdk8o"]
 
-[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="1_21exr"]
-[ext_resource type="Script" path="res://scenes/upnp_menu.gd" id="1_rb35r"]
+[ext_resource type="Script" path="res://scenes/menu/upnp_menu.gd" id="1_no5am"]
+[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="2_hhiof"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4nw42"]
 properties/0/path = NodePath("upnpMenu/MarginContainer/ipAdress:text")
@@ -20,12 +20,12 @@ offset_right = 102.0
 offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_rb35r")
+script = ExtResource("1_no5am")
 
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_21exr")
+theme_override_fonts/font = ExtResource("2_hhiof")
 text = "UPNP"
 
 [node name="upnpMenu" type="PanelContainer" parent="."]
@@ -41,7 +41,7 @@ theme_override_constants/margin_bottom = 8
 
 [node name="ipAdress" type="Label" parent="upnpMenu/MarginContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_21exr")
+theme_override_fonts/font = ExtResource("2_hhiof")
 text = "disabled"
 horizontal_alignment = 1
 
