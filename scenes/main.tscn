@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://usf4sycvig4r"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_dapdo"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_dapdo")
