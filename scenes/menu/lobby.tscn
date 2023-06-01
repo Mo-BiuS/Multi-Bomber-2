@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcujhyljjy55s"]
+[gd_scene load_steps=4 format=3 uid="uid://bcujhyljjy55s"]
 
 [ext_resource type="Script" path="res://scenes/menu/lobby.gd" id="1_gu5tv"]
+[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="2_6sl2w"]
+[ext_resource type="PackedScene" uid="uid://xglex3mh4w4y" path="res://scenes/character_editor.tscn" id="2_8os6c"]
 
 [node name="lobby" type="PanelContainer"]
 anchors_preset = 8
@@ -38,7 +40,10 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6sl2w")
+theme_override_font_sizes/font_size = 32
 text = "Lobby"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -76,8 +81,7 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="characterEditor" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(160, 180)
+[node name="characterEditor" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer" instance=ExtResource("2_8os6c")]
 layout_mode = 2
 
 [node name="startingBonus" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
@@ -92,3 +96,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Start"
+
+[connection signal="bodyChanged" from="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/characterEditor" to="." method="_on_character_editor_body_changed"]
+[connection signal="headChanged" from="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/characterEditor" to="." method="_on_character_editor_head_changed"]

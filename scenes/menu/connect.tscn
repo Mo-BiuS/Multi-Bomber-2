@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1wya44afbn6f"]
+[gd_scene load_steps=3 format=3 uid="uid://d1wya44afbn6f"]
 
 [ext_resource type="Script" path="res://scenes/menu/connect.gd" id="1_pc2i7"]
+[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="2_ddlqb"]
 
 [node name="connect" type="PanelContainer"]
 anchors_preset = 8
@@ -39,6 +40,7 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ddlqb")
 theme_override_font_sizes/font_size = 32
 text = "Bomberman"
 horizontal_alignment = 1
@@ -64,11 +66,14 @@ theme_override_constants/separation = 8
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ddlqb")
 text = "Pseudo"
+horizontal_alignment = 1
 
 [node name="name" type="LineEdit" parent="MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ddlqb")
 alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer"]
@@ -78,12 +83,14 @@ theme_override_constants/separation = 8
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ddlqb")
 text = "IP"
 horizontal_alignment = 1
 
 [node name="ip" type="LineEdit" parent="MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ddlqb")
 text = "127.0.0.1"
 alignment = 1
 
@@ -104,11 +111,13 @@ theme_override_constants/separation = 8
 [node name="Join" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ddlqb")
 text = "Join"
 
 [node name="Host" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ddlqb")
 text = "Host"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Join" to="." method="_on_join_pressed"]
