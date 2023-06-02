@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://usf4sycvig4r"]
+[gd_scene load_steps=6 format=3 uid="uid://usf4sycvig4r"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_dapdo"]
 [ext_resource type="PackedScene" uid="uid://d1wya44afbn6f" path="res://scenes/menu/connect.tscn" id="2_j7kvc"]
 [ext_resource type="PackedScene" uid="uid://bcujhyljjy55s" path="res://scenes/menu/lobby.tscn" id="3_0cbpo"]
+[ext_resource type="PackedScene" uid="uid://boo2sncif7kb1" path="res://scenes/game/game.tscn" id="4_r33e3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fxfpj"]
 properties/0/path = NodePath("connect:visible")
@@ -11,6 +12,9 @@ properties/0/sync = true
 properties/1/path = NodePath("lobby:visible")
 properties/1/spawn = true
 properties/1/sync = true
+properties/2/path = NodePath("game:visible")
+properties/2/spawn = true
+properties/2/sync = true
 
 [node name="main" type="Node"]
 script = ExtResource("1_dapdo")
@@ -20,8 +24,12 @@ script = ExtResource("1_dapdo")
 [node name="lobby" parent="." instance=ExtResource("3_0cbpo")]
 visible = false
 
+[node name="game" parent="." instance=ExtResource("4_r33e3")]
+visible = false
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_fxfpj")
 
 [connection signal="createClient" from="connect" to="." method="_on_connect_create_client"]
 [connection signal="createServer" from="connect" to="." method="_on_connect_create_server"]
+[connection signal="startGame" from="lobby" to="." method="_on_lobby_start_game"]

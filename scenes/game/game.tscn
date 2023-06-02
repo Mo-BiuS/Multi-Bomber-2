@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://boo2sncif7kb1"]
+
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_l72dk"]
+
+[node name="game" type="Node2D"]
+position = Vector2(280, 302.5)
+script = ExtResource("1_l72dk")
+
+[node name="playerList" type="Node2D" parent="."]
