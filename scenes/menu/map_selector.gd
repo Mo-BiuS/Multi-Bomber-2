@@ -9,4 +9,4 @@ func _process(delta):
 		next.disabled = true
 
 func getMapId()->int:
-	return 1
+	return 0

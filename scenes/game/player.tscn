@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bj4la2w5on4ta"]
+[gd_scene load_steps=7 format=3 uid="uid://bj4la2w5on4ta"]
 
 [ext_resource type="Script" path="res://scenes/game/player.gd" id="1_crp6e"]
+[ext_resource type="FontFile" uid="uid://dirkq07ia4py8" path="res://ressources/font/FSEX300.ttf" id="2_2xk72"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydmgl"]
 size = Vector2(16, 16)
@@ -102,19 +103,17 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="name" type="Label" parent="name"]
-custom_minimum_size = Vector2(0, 110)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -0.5
-offset_top = -11.5
-offset_right = 0.5
-offset_bottom = 11.5
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_2xk72")
+theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

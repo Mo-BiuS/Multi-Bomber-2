@@ -36,6 +36,10 @@ func initAnim():
 		body.sprite_frames.add_frame("up", get_Body(bodyId,x,1))
 		body.sprite_frames.add_frame("right", get_Body(bodyId,x,2))
 		body.sprite_frames.add_frame("left", get_Body(bodyId,x,3))
+	head.play("down")
+	head.stop()
+	body.play("down")
+	body.stop()
 
 func get_head(id:int, y:int) -> AtlasTexture:
 	var headTexture:Texture2D = load("res://ressources/player/head/head"+str(id+1)+".png")

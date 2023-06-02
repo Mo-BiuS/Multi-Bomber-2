@@ -6,4 +6,6 @@
 position = Vector2(280, 302.5)
 script = ExtResource("1_l72dk")
 
+[node name="arenaHolder" type="Node2D" parent="."]
+
 [node name="playerList" type="Node2D" parent="."]
