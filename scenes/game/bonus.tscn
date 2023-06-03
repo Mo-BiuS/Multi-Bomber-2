@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch36njl78hbmv"]
+
+[ext_resource type="Script" path="res://scenes/game/bonus.gd" id="1_in1bp"]
+[ext_resource type="Texture2D" uid="uid://cyjddrsqx2cii" path="res://ressources/building/misc.png" id="1_lk0xj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g8ci6"]
+size = Vector2(16, 16)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_verls"]
+properties/0/path = NodePath(".:region_rect")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/sync = true
+
+[node name="bonus" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_lk0xj")
+region_enabled = true
+region_rect = Rect2(64, 0, 32, 32)
+script = ExtResource("1_in1bp")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_g8ci6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_verls")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

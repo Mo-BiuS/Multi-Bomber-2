@@ -29,7 +29,7 @@ func calcExplosion(pos:Vector2i, power:int, direction:int)->Array[Vector2i]:
 	var arena:TileMap = get_children()[0]
 	if( arena.get_cell_source_id(1, pos) == -1):
 		a.append(pos)
-		if(power >= 0 && arena.get_cell_source_id(2, pos) == -1):
+		if(power > 0 && arena.get_cell_source_id(2, pos) == -1):
 			if direction == 0 || direction == 1 : a.append_array(calcExplosion(pos+Vector2i(1,0),power-1,1))
 			if direction == 0 || direction == 2 : a.append_array(calcExplosion(pos+Vector2i(0,1),power-1,2))
 			if direction == 0 || direction == 3 : a.append_array(calcExplosion(pos+Vector2i(-1,0),power-1,3))

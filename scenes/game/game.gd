@@ -2,10 +2,12 @@ extends Node2D
 
 @onready var playerList = $playerList
 @onready var bombList = $bombList
+@onready var bonusList = $bonusList
 @onready var arenaHolder = $arenaHolder
 
 const playerModel = preload("res://scenes/game/player.tscn")
 const bombModel = preload("res://scenes/game/bomb.tscn")
+const bonusModel = preload("res://scenes/game/bonus.tscn")
 
 const arena0 = preload("res://scenes/game/arena/arena_0.tscn")
 
@@ -49,14 +51,15 @@ func placeBombAt(id:int, pos:Vector2):
 			bomb.position = Vector2i((pos)/64)*64+Vector2i(32,32)
 			bombList.add_child(bomb, true)
 			bomb.playerId = player.playerId
+			bomb.power = player.power
 			bomb.explosionAt.connect(explosionAt)
 			player.bomb+=1
 
-func explosionAt(id:int, pos:Vector2):
+func explosionAt(id:int, pos:Vector2, power:int):
 	var player = getPlayerById(id)
 	if player != null :
 		player.bomb-=1
-	arenaHolder.explosionAt(Vector2i(pos/64), player.power)
+	arenaHolder.explosionAt(Vector2i(pos/64), power)
 
 func getPlayerById(id:int):
 	for i in playerList.get_children():
@@ -86,4 +89,8 @@ func placePlayer():
 		i.setPosition(pos*2)
 
 func _on_arena_holder_spawn_bonus_at(pos):
-	print("Spawn bonus")
+	var bonus = bonusModel.instantiate()
+	bonus.init()
+	bonus.position = pos*64+Vector2i(32,32)
+	bonusList.add_child(bonus, true)
+	

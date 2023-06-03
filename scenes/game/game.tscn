@@ -12,10 +12,16 @@ script = ExtResource("2_okw3u")
 
 [node name="bombList" type="Node2D" parent="."]
 
+[node name="bonusList" type="Node2D" parent="."]
+
 [node name="playerList" type="Node2D" parent="."]
 
 [node name="bombSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/game/bomb.tscn")
 spawn_path = NodePath("../bombList")
+
+[node name="bonusSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/bonus.tscn")
+spawn_path = NodePath("../bonusList")
 
 [connection signal="spawnBonusAt" from="arenaHolder" to="." method="_on_arena_holder_spawn_bonus_at"]

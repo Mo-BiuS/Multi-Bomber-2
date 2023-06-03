@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var timer:float = 3.0
 var playerId:int = 0
+var power:int
 
 @onready var texture = $Sprite2D
 
@@ -16,5 +17,5 @@ func _process(delta):
 
 func detonate():
 	if multiplayer.get_unique_id() == 1 : 
-		explosionAt.emit(playerId, position)
+		explosionAt.emit(playerId, position, power)
 		queue_free()
