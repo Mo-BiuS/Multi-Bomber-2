@@ -41,6 +41,12 @@ properties/8/sync = true
 properties/9/path = NodePath(".:power")
 properties/9/spawn = true
 properties/9/sync = true
+properties/10/path = NodePath(".:visible")
+properties/10/spawn = true
+properties/10/sync = true
+properties/11/path = NodePath("hud:visible")
+properties/11/spawn = true
+properties/11/sync = true
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_crp6e")
@@ -93,8 +99,8 @@ horizontal_alignment = 1
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_dq22p")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(0, 64)
+[node name="direction" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
 
 [node name="hud" type="CanvasLayer" parent="."]
 

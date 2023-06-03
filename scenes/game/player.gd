@@ -28,7 +28,7 @@ var isAlive:bool = true
 @onready var body:AnimatedSprite2D = $body
 @onready var camera:Camera2D = $camera
 @onready var nameLabel:Label = $name/name
-@onready var rayCast:RayCast2D = $RayCast2D
+@onready var rayCast:RayCast2D = $direction
 @onready var hud:CanvasLayer = $hud
 
 @onready var speedLabel = $hud/PanelContainer/MarginContainer/VBoxContainer/speed
@@ -219,6 +219,3 @@ func get_Body(id:int, x:int, y:int) -> AtlasTexture:
 	atlas_texture.set_atlas(bodyTexture)
 	atlas_texture.set_region(Rect2(x*16,y*16,16,16))
 	return atlas_texture
-
-
-

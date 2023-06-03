@@ -37,3 +37,7 @@ func calcExplosion(pos:Vector2i, power:int, direction:int)->Array[Vector2i]:
 		if multiplayer.get_unique_id() == 1 && arena.get_cell_atlas_coords(2, pos) == Vector2i(0,0):spawnBonusAt.emit(pos)
 		arena.set_cells_terrain_connect(2,[pos],0,0)
 	return a
+
+func isExplosed(pos:Vector2i)->bool:
+	var arena:TileMap = get_children()[0]
+	return arena.get_cell_source_id(3,pos) != -1

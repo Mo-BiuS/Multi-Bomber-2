@@ -24,6 +24,12 @@ func startGame():
 	placePlayer()
 	setState(1)
 
+func _process(delta):
+	if(multiplayer.get_unique_id() == 1 && state == 1):
+		for i in playerList.get_children():
+			if i.isAlive && arenaHolder.isExplosed(i.position/64):
+				i.setDeath()
+
 func addPlayer(id:int,playerName:String, headId:int, bodyId:int):
 	rpc("addPlayerSync",id,playerName,headId,bodyId)
 @rpc("authority","call_local")func addPlayerSync(id:int,playerName:String, headId:int, bodyId:int):
