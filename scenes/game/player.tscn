@@ -6,51 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydmgl"]
 size = Vector2(16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ti55l"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"down",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"left",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"right",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"up",
-"speed": 5.0
-}]
+[sub_resource type="SpriteFrames" id="SpriteFrames_jfklu"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_qajue"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"down",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"left",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"right",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"up",
-"speed": 5.0
-}]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ks8m2"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dq22p"]
 properties/0/path = NodePath(".:position")
@@ -83,14 +41,12 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [node name="head" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_ti55l")
-animation = &"up"
+sprite_frames = SubResource("SpriteFrames_jfklu")
 
 [node name="body" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_qajue")
-animation = &"left"
+sprite_frames = SubResource("SpriteFrames_ks8m2")
 
 [node name="camera" type="Camera2D" parent="."]
 

@@ -161,10 +161,21 @@ func setPosition(pos:Vector2):
 	destination = pos
 
 func initAnim():
+	head.sprite_frames = SpriteFrames.new()
+	head.sprite_frames.add_animation("down")
+	head.sprite_frames.add_animation("up")
+	head.sprite_frames.add_animation("right")
+	head.sprite_frames.add_animation("left")
 	head.sprite_frames.add_frame("down", get_head(headId,0))
 	head.sprite_frames.add_frame("up", get_head(headId,1))
 	head.sprite_frames.add_frame("right", get_head(headId,2))
 	head.sprite_frames.add_frame("left", get_head(headId,3))
+	
+	body.sprite_frames = SpriteFrames.new()
+	body.sprite_frames.add_animation("down")
+	body.sprite_frames.add_animation("up")
+	body.sprite_frames.add_animation("right")
+	body.sprite_frames.add_animation("left")
 	for x in range(4):
 		body.sprite_frames.add_frame("down", get_Body(bodyId,x,0))
 		body.sprite_frames.add_frame("up", get_Body(bodyId,x,1))
