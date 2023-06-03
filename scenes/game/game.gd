@@ -26,6 +26,9 @@ func addPlayer(id:int,playerName:String, headId:int, bodyId:int):
 	p.playerName = playerName
 	p.headId = headId
 	p.bodyId = bodyId
+	p.maxBomb = startBomb
+	p.speed = startSpeed
+	p.power = startPower
 	p.position = Vector2i(randi()%100, randi()%100)
 	playerList.add_child(p,true)
 
@@ -49,4 +52,4 @@ func placePlayer():
 	for i in playerList.get_children():
 		var pos = positions.pick_random()
 		positions.erase(pos)
-		i.position = pos*2
+		i.setPosition(pos*2)

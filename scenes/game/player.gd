@@ -1,30 +1,156 @@
 extends CharacterBody2D
 
-@export var headId:int = 0
-@export var bodyId:int = 0
-@export var playerName:String = "DEFAULT"
-@export var playerId:int = 0
+var headId:int = 0
+var bodyId:int = 0
+var playerName:String = "DEFAULT"
+var playerId:int = 0
 
-var init = false
+
+var init:bool = false
+var destination:Vector2
+var speed:float = 1.0
+var bomb:int = 0
+var maxBomb:int = 1
+var power:int = 1
+
+@export var moving:int = -1
+
+const IDLE=-1
+const UP=0
+const DOWN=1
+const RIGHT=2
+const LEFT=3
 
 @onready var head:AnimatedSprite2D = $head
 @onready var body:AnimatedSprite2D = $body
 @onready var camera:Camera2D = $camera
 @onready var nameLabel:Label = $name/name
+@onready var rayCast:RayCast2D = $RayCast2D
+@onready var hud:CanvasLayer = $hud
 
 func _ready():
 	camera.enabled = multiplayer.get_unique_id() == playerId
 	initAnim()
 	nameLabel.text = playerName
+	destination = position
+	if(multiplayer.get_unique_id() != playerId):
+		hud.hide()
+#===============================================================================
+
+func _process(delta):
+	if(multiplayer.get_unique_id() == 1):
+		if destination == position:
+			match moving:
+				UP: 
+					if !collide(UP):
+						destination+=Vector2(0,-64)
+						playAnim("up")
+				DOWN: 
+					if !collide(DOWN):
+						destination+=Vector2(0,64)
+						playAnim("down")
+				RIGHT: 
+					if !collide(RIGHT):
+						destination+=Vector2(64,0)
+						playAnim("right")
+				LEFT:
+					if !collide(LEFT):
+						destination+=Vector2(-64,0)
+						playAnim("left")
+		if destination != position:
+			if destination.x == position.x:
+				if destination.y < position.y:
+					if destination.y < position.y-speed:
+						position.y-=speed
+					else:
+						if moving == UP && !collide(UP):
+							position.y-=speed
+							destination+=Vector2(0,-64)
+						else:
+							position = destination
+							stopAnim()
+				else:
+					if destination.y > position.y+speed:
+						position.y+=speed
+					else:
+						if moving == DOWN && !collide(DOWN):
+							position.y+=speed
+							destination+=Vector2(0,64)
+						else:
+							position = destination
+							stopAnim()
+			else:
+				if destination.x < position.x:
+					if destination.x < position.x-speed:
+						position.x-=speed
+					else:
+						if moving == LEFT && !collide(LEFT):
+							position.x-=speed
+							destination+=Vector2(-64,0)
+						else:
+							position = destination
+							stopAnim()
+				else:
+					if destination.x > position.x+speed:
+						position.x+=speed
+					else:
+						if moving == RIGHT && !collide(RIGHT):
+							position.x+=speed
+							destination+=Vector2(64,0)
+						else:
+							position = destination
+							stopAnim()
+
+func _input(event):
+	if(playerId == multiplayer.get_unique_id()):
+		if event.is_action_pressed("up"):
+			rpc_id(1,"goUp")
+		elif event.is_action_pressed("down"):
+			rpc_id(1,"goDown")
+		elif event.is_action_pressed("right"):
+			rpc_id(1,"goRight")
+		elif event.is_action_pressed("left"):
+			rpc_id(1,"goLeft")
+		elif event.is_action_released("up") && moving == UP:
+			rpc_id(1,"idle")
+		elif event.is_action_released("down") && moving == DOWN:
+			rpc_id(1,"idle")
+		elif event.is_action_released("right") && moving == RIGHT:
+			rpc_id(1,"idle")
+		elif event.is_action_released("left") && moving == LEFT:
+			rpc_id(1,"idle")
+
+@rpc("call_local","any_peer") func goUp():
+	moving = UP
+@rpc("call_local","any_peer") func goDown(): 
+	moving = DOWN
+@rpc("call_local","any_peer") func goRight(): 
+	moving = RIGHT
+@rpc("call_local","any_peer") func goLeft(): 
+	moving = LEFT
+@rpc("call_local","any_peer") func idle(): moving = IDLE
+
+func collide(dir:int)->bool:
+	match dir :
+		UP:rayCast.target_position = Vector2(0,-64)
+		DOWN:rayCast.target_position = Vector2(0,64)
+		LEFT:rayCast.target_position = Vector2(-64,0)
+		RIGHT:rayCast.target_position = Vector2(64,0)
+	rayCast.force_raycast_update()
+	return rayCast.is_colliding()
 
 #===============================================================================
 
-func stopAnim(animName:String):
+func stopAnim():
 	head.stop()
 	body.stop()
 func playAnim(animName:String):
 	head.play(animName)
 	body.play(animName)
+
+func setPosition(pos:Vector2):
+	position = pos
+	destination = pos
 
 func initAnim():
 	head.sprite_frames.add_frame("down", get_head(headId,0))
@@ -36,10 +162,8 @@ func initAnim():
 		body.sprite_frames.add_frame("up", get_Body(bodyId,x,1))
 		body.sprite_frames.add_frame("right", get_Body(bodyId,x,2))
 		body.sprite_frames.add_frame("left", get_Body(bodyId,x,3))
-	head.play("down")
-	head.stop()
-	body.play("down")
-	body.stop()
+	playAnim("down")
+	stopAnim()
 
 func get_head(id:int, y:int) -> AtlasTexture:
 	var headTexture:Texture2D = load("res://ressources/player/head/head"+str(id+1)+".png")
