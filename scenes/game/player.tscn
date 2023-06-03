@@ -129,3 +129,35 @@ replication_config = SubResource("SceneReplicationConfig_dq22p")
 target_position = Vector2(0, 64)
 
 [node name="hud" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="hud"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="hud/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hud/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="speed" type="Label" parent="hud/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2xk72")
+theme_override_font_sizes/font_size = 24
+text = "Speed :"
+
+[node name="bomb" type="Label" parent="hud/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2xk72")
+theme_override_font_sizes/font_size = 24
+text = "Bomb :"
+
+[node name="power" type="Label" parent="hud/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2xk72")
+theme_override_font_sizes/font_size = 24
+text = "Power :"

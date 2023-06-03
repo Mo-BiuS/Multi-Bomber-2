@@ -28,6 +28,10 @@ const LEFT=3
 @onready var rayCast:RayCast2D = $RayCast2D
 @onready var hud:CanvasLayer = $hud
 
+@onready var speedLabel = $hud/PanelContainer/MarginContainer/VBoxContainer/speed
+@onready var bombLabel = $hud/PanelContainer/MarginContainer/VBoxContainer/bomb
+@onready var powerLabel = $hud/PanelContainer/MarginContainer/VBoxContainer/power
+
 func _ready():
 	camera.enabled = multiplayer.get_unique_id() == playerId
 	initAnim()
@@ -38,6 +42,10 @@ func _ready():
 #===============================================================================
 
 func _process(delta):
+	if(multiplayer.get_unique_id() == playerId):
+		speedLabel.text = "Speed : "+str(speed)
+		bombLabel.text = "Bombs : "+str(bomb)+"/"+str(maxBomb)
+		powerLabel.text = "Power : "+str(power)
 	if(multiplayer.get_unique_id() == 1):
 		if destination == position:
 			match moving:
