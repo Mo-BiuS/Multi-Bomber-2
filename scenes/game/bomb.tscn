@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbghse1m5p4gj"]
+
+[ext_resource type="Script" path="res://scenes/game/bomb.gd" id="1_c7jyn"]
+[ext_resource type="Texture2D" uid="uid://cyjddrsqx2cii" path="res://ressources/building/misc.png" id="1_lstid"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjytk"]
+size = Vector2(32, 32)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4qju6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+
+[node name="bomb" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_c7jyn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fjytk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_lstid")
+region_enabled = true
+region_rect = Rect2(32, 64, 32, 32)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4qju6")

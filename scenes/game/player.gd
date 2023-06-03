@@ -5,13 +5,14 @@ var bodyId:int = 0
 var playerName:String = "DEFAULT"
 var playerId:int = 0
 
+var boundaries:Rect2i = Rect2i(0,0,0,0)
 
 var init:bool = false
 var destination:Vector2
-var speed:float = 1.0
-var bomb:int = 0
-var maxBomb:int = 1
-var power:int = 1
+@export var speed:float = 1.0
+@export var bomb:int = 0
+@export var maxBomb:int = 1
+@export var power:int = 1
 
 @export var moving:int = -1
 
@@ -20,6 +21,8 @@ const UP=0
 const DOWN=1
 const RIGHT=2
 const LEFT=3
+
+var isAlive:bool = true
 
 @onready var head:AnimatedSprite2D = $head
 @onready var body:AnimatedSprite2D = $body
@@ -31,6 +34,8 @@ const LEFT=3
 @onready var speedLabel = $hud/PanelContainer/MarginContainer/VBoxContainer/speed
 @onready var bombLabel = $hud/PanelContainer/MarginContainer/VBoxContainer/bomb
 @onready var powerLabel = $hud/PanelContainer/MarginContainer/VBoxContainer/power
+
+signal placeBombAt(id:int, pos:Vector2)
 
 func _ready():
 	camera.enabled = multiplayer.get_unique_id() == playerId
@@ -127,6 +132,8 @@ func _input(event):
 			rpc_id(1,"idle")
 		elif event.is_action_released("left") && moving == LEFT:
 			rpc_id(1,"idle")
+		if event.is_action_pressed("bomb"):
+			rpc_id(1,"placeBombAtSync")
 
 @rpc("call_local","any_peer") func goUp():
 	moving = UP
@@ -137,17 +144,33 @@ func _input(event):
 @rpc("call_local","any_peer") func goLeft(): 
 	moving = LEFT
 @rpc("call_local","any_peer") func idle(): moving = IDLE
+@rpc("call_local","any_peer") func placeBombAtSync(): placeBombAt.emit(playerId,position)
 
 func collide(dir:int)->bool:
-	match dir :
-		UP:rayCast.target_position = Vector2(0,-64)
-		DOWN:rayCast.target_position = Vector2(0,64)
-		LEFT:rayCast.target_position = Vector2(-64,0)
-		RIGHT:rayCast.target_position = Vector2(64,0)
-	rayCast.force_raycast_update()
-	return rayCast.is_colliding()
+	if isAlive: 
+		match dir :
+			UP:rayCast.target_position = Vector2(0,-64)
+			DOWN:rayCast.target_position = Vector2(0,64)
+			LEFT:rayCast.target_position = Vector2(-64,0)
+			RIGHT:rayCast.target_position = Vector2(64,0)
+		rayCast.force_raycast_update()
+		return rayCast.is_colliding()
+	else :
+		match dir : 
+			UP:return !(int((position.y)/64) > int(boundaries.position.y))
+			DOWN:return !(int((position.y+64)/64) < int(boundaries.size.y))
+			LEFT:return !(int((position.x)/64) > int(boundaries.position.x))
+			RIGHT:return !(int((position.x+64)/64) < int(boundaries.size.x))
+		return false
 
 #===============================================================================
+
+func setDeath():
+	isAlive = false
+	self.hide()
+	hud.hide()
+	$CollisionShape2D.disabled = true
+	speed = 6.0
 
 func stopAnim():
 	head.stop()

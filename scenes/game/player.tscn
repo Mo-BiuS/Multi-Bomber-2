@@ -29,6 +29,18 @@ properties/4/sync = true
 properties/5/path = NodePath(".:moving")
 properties/5/spawn = true
 properties/5/sync = true
+properties/6/path = NodePath(".:speed")
+properties/6/spawn = true
+properties/6/sync = true
+properties/7/path = NodePath(".:bomb")
+properties/7/spawn = true
+properties/7/sync = true
+properties/8/path = NodePath(".:maxBomb")
+properties/8/spawn = true
+properties/8/sync = true
+properties/9/path = NodePath(".:power")
+properties/9/spawn = true
+properties/9/sync = true
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_crp6e")

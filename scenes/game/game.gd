@@ -1,9 +1,11 @@
 extends Node2D
 
 @onready var playerList = $playerList
+@onready var bombList = $bombList
 @onready var arenaHolder = $arenaHolder
 
 const playerModel = preload("res://scenes/game/player.tscn")
+const bombModel = preload("res://scenes/game/bomb.tscn")
 
 const arena0 = preload("res://scenes/game/arena/arena_0.tscn")
 
@@ -15,6 +17,8 @@ var startPower:int = 1
 
 func startGame():
 	rpc("loadMap", mapId)
+	for i in playerList.get_children():
+		i.boundaries = arenaHolder.get_children()[0].size
 	placePlayer()
 	setState(1)
 
@@ -31,6 +35,33 @@ func addPlayer(id:int,playerName:String, headId:int, bodyId:int):
 	p.power = startPower
 	p.position = Vector2i(randi()%100, randi()%100)
 	playerList.add_child(p,true)
+	if multiplayer.get_unique_id() == 1:
+		p.placeBombAt.connect(placeBombAt)
+
+func placeBombAt(id:int, pos:Vector2):
+	var player = getPlayerById(id)
+	if player != null && player.maxBomb > player.bomb:
+		var canPlace:bool = true
+		for i in bombList.get_children():
+			canPlace = canPlace && !(Vector2i(i.position/64) == Vector2i(pos/64))
+		if canPlace:
+			var bomb = bombModel.instantiate()
+			bomb.position = Vector2i((pos)/64)*64+Vector2i(32,32)
+			bombList.add_child(bomb, true)
+			bomb.playerId = player.playerId
+			bomb.explosionAt.connect(explosionAt)
+			player.bomb+=1
+
+func explosionAt(id:int, pos:Vector2):
+	var player = getPlayerById(id)
+	if player != null :
+		player.bomb-=1
+	arenaHolder.explosionAt(Vector2i(pos/64), player.power)
+
+func getPlayerById(id:int):
+	for i in playerList.get_children():
+		if i.playerId == id: return i
+	return null
 
 func setState(value:int):
 	state = value
@@ -53,3 +84,6 @@ func placePlayer():
 		var pos = positions.pick_random()
 		positions.erase(pos)
 		i.setPosition(pos*2)
+
+func _on_arena_holder_spawn_bonus_at(pos):
+	print("Spawn bonus")

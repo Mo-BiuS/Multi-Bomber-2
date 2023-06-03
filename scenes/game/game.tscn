@@ -1,11 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://boo2sncif7kb1"]
+[gd_scene load_steps=3 format=3 uid="uid://boo2sncif7kb1"]
 
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_l72dk"]
+[ext_resource type="Script" path="res://scenes/game/arenaHolder.gd" id="2_okw3u"]
 
 [node name="game" type="Node2D"]
 position = Vector2(280, 302.5)
 script = ExtResource("1_l72dk")
 
 [node name="arenaHolder" type="Node2D" parent="."]
+script = ExtResource("2_okw3u")
+
+[node name="bombList" type="Node2D" parent="."]
 
 [node name="playerList" type="Node2D" parent="."]
+
+[node name="bombSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/bomb.tscn")
+spawn_path = NodePath("../bombList")
+
+[connection signal="spawnBonusAt" from="arenaHolder" to="." method="_on_arena_holder_spawn_bonus_at"]
