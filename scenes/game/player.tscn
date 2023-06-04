@@ -47,6 +47,12 @@ properties/10/sync = true
 properties/11/path = NodePath("hud:visible")
 properties/11/spawn = true
 properties/11/sync = true
+properties/12/path = NodePath(".:disabled")
+properties/12/spawn = true
+properties/12/sync = true
+properties/13/path = NodePath(".:isAlive")
+properties/13/spawn = true
+properties/13/sync = true
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_crp6e")

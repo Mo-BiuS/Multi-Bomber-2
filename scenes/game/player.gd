@@ -7,6 +7,7 @@ var playerId:int = 0
 
 var boundaries:Rect2i = Rect2i(0,0,0,0)
 
+@export var disabled = false
 var init:bool = false
 var destination:Vector2
 @export var speed:float = 1.0
@@ -22,7 +23,7 @@ const DOWN=1
 const RIGHT=2
 const LEFT=3
 
-var isAlive:bool = true
+@export var isAlive:bool = true
 
 @onready var head:AnimatedSprite2D = $head
 @onready var body:AnimatedSprite2D = $body
@@ -42,15 +43,16 @@ func _ready():
 	initAnim()
 	nameLabel.text = playerName
 	destination = position
-	if(multiplayer.get_unique_id() != playerId):
-		hud.hide()
+
 #===============================================================================
 
 func _process(delta):
-	if(multiplayer.get_unique_id() == playerId):
+	if(multiplayer.get_unique_id() == playerId && isAlive):
+		hud.show()
 		speedLabel.text = "Speed : "+str(speed)
 		bombLabel.text = "Bombs : "+str(bomb)+"/"+str(maxBomb)
 		powerLabel.text = "Power : "+str(power)
+	else : hud.hide()
 	if(multiplayer.get_unique_id() == 1):
 		if destination == position:
 			match moving:
@@ -115,7 +117,7 @@ func _process(delta):
 							stopAnim()
 
 func _input(event):
-	if(playerId == multiplayer.get_unique_id()):
+	if(!disabled && playerId == multiplayer.get_unique_id()):
 		if event.is_action_pressed("up"):
 			rpc_id(1,"goUp")
 		elif event.is_action_pressed("down"):
@@ -167,10 +169,19 @@ func collide(dir:int)->bool:
 
 func setDeath():
 	isAlive = false
+	disabled = false
 	self.hide()
-	hud.hide()
 	$CollisionShape2D.disabled = true
 	speed = 6.0
+
+func setAlive():
+	isAlive = true
+	disabled = false
+	self.show()
+	$CollisionShape2D.disabled = false
+
+func setDisabled():
+	disabled = true
 
 func stopAnim():
 	head.stop()

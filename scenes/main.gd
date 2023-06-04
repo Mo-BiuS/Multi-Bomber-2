@@ -61,4 +61,4 @@ func _on_lobby_start_game():
 	for i in multiplayer.get_peers():
 		game.addPlayer(i,nameDict[i], lobby.getPlayerHead(i), lobby.getPlayerBody(i))
 	setState(2)
-	game.startGame()
+	game.setState(1)

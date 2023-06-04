@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://boo2sncif7kb1"]
+[gd_scene load_steps=4 format=3 uid="uid://boo2sncif7kb1"]
 
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_l72dk"]
 [ext_resource type="Script" path="res://scenes/game/arenaHolder.gd" id="2_okw3u"]
+[ext_resource type="PackedScene" uid="uid://cboi350jp485o" path="res://scenes/menu/endhud.tscn" id="3_281gk"]
 
 [node name="game" type="Node2D"]
 position = Vector2(280, 302.5)
@@ -24,4 +25,8 @@ spawn_path = NodePath("../bombList")
 _spawnable_scenes = PackedStringArray("res://scenes/game/bonus.tscn")
 spawn_path = NodePath("../bonusList")
 
+[node name="endhud" parent="." instance=ExtResource("3_281gk")]
+visible = false
+
 [connection signal="spawnBonusAt" from="arenaHolder" to="." method="_on_arena_holder_spawn_bonus_at"]
+[connection signal="restart" from="endhud" to="." method="_on_endhud_restart"]

@@ -4,6 +4,7 @@ extends Node2D
 @onready var bombList = $bombList
 @onready var bonusList = $bonusList
 @onready var arenaHolder = $arenaHolder
+@onready var endhud = $endhud
 
 const playerModel = preload("res://scenes/game/player.tscn")
 const bombModel = preload("res://scenes/game/bomb.tscn")
@@ -17,30 +18,24 @@ var startBomb:int = 1
 var startSpeed:float = 1.0
 var startPower:int = 1
 
-func startGame():
-	rpc("loadMap", mapId)
-	for i in playerList.get_children():
-		i.boundaries = arenaHolder.get_children()[0].size
-	placePlayer()
-	setState(1)
-
 func _process(delta):
 	if(multiplayer.get_unique_id() == 1 && state == 1):
+		var someoneDied = false
 		for i in playerList.get_children():
 			if i.isAlive && arenaHolder.isExplosed(i.position/64):
 				i.setDeath()
+				someoneDied = true
+		if(someoneDied && alivePlayer() <= 1):setState(2)
 
 func addPlayer(id:int,playerName:String, headId:int, bodyId:int):
 	rpc("addPlayerSync",id,playerName,headId,bodyId)
+	endhud.addPlayer(playerName)
 @rpc("authority","call_local")func addPlayerSync(id:int,playerName:String, headId:int, bodyId:int):
 	var p = playerModel.instantiate()
 	p.playerId = id
 	p.playerName = playerName
 	p.headId = headId
 	p.bodyId = bodyId
-	p.maxBomb = startBomb
-	p.speed = startSpeed
-	p.power = startPower
 	p.position = Vector2i(randi()%100, randi()%100)
 	playerList.add_child(p,true)
 	if multiplayer.get_unique_id() == 1:
@@ -76,8 +71,26 @@ func setState(value:int):
 	state = value
 	match state:
 		0:pass
-		1:pass
-		2:pass
+		1:
+			endhud.hide()
+			rpc("loadMap", mapId)
+			for i in playerList.get_children():
+				i.maxBomb = startBomb
+				i.speed = startSpeed
+				i.power = startPower
+				i.setAlive()
+				i.boundaries = arenaHolder.get_children()[0].size
+			placePlayer()
+		2:
+			setWinner()
+			for i in bonusList.get_children():
+				i.queue_free()
+			for i in bombList.get_children():
+				i.queue_free()
+			for i in playerList.get_children():
+				i.setDeath()
+				i.setDisabled()
+			endhud.show()
 
 @rpc("authority","call_local")func loadMap(id:int):
 	for i in arenaHolder.get_children():
@@ -100,3 +113,20 @@ func _on_arena_holder_spawn_bonus_at(pos):
 	bonus.position = pos*64+Vector2i(32,32)
 	bonusList.add_child(bonus, true)
 	
+func alivePlayer()->int:
+	var count:int = 0
+	for p in playerList.get_children():
+		if p.isAlive : count+=1
+	return count
+
+func setWinner():
+	var found = false
+	for p in playerList.get_children():
+		if p.isAlive : 
+			endhud.setWinner(p.playerName)
+			found = true
+	if !found : endhud.setDraw()
+	
+
+func _on_endhud_restart():
+	setState(1)
