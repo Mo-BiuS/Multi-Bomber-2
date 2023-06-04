@@ -48,3 +48,6 @@ custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_n118i")
 text = "Next"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/prev" to="." method="_on_prev_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/next" to="." method="_on_next_pressed"]

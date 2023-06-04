@@ -11,6 +11,7 @@ const bombModel = preload("res://scenes/game/bomb.tscn")
 const bonusModel = preload("res://scenes/game/bonus.tscn")
 
 const arena0 = preload("res://scenes/game/arena/arena_0.tscn")
+const arena1 = preload("res://scenes/game/arena/arena_1.tscn")
 
 var state:int = 0
 var mapId:int = 0
@@ -118,6 +119,7 @@ func setState(value:int):
 	var map
 	match id :
 		0:map = arena0.instantiate()
+		1:map = arena1.instantiate()
 	arenaHolder.add_child(map, true)
 
 func placePlayer():
