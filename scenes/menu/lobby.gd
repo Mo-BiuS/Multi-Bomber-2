@@ -10,9 +10,16 @@ var playerTag = preload("res://scenes/menu/player_tag.tscn")
 
 signal startGame
 
+func _ready():
+	multiplayer.peer_disconnected.connect(removePlayer)
+
 func _process(delta):
 	if(!multiplayer.get_unique_id() == 1):
 		startButton.disabled = true
+
+func removePlayer(id:int):
+	for i in playerTagContener.get_children():
+		if i.id == id: i.queue_free()
 
 func addPlayer(id:int, playerName:String):
 		var tag = playerTag.instantiate()

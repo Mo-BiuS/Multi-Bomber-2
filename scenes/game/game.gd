@@ -20,6 +20,9 @@ var startPower:int = 1
 
 signal menu
 
+func _ready():
+	multiplayer.peer_disconnected.connect(removePlayer)
+
 func _process(delta):
 	if(multiplayer.get_unique_id() == 1 && state == 1):
 		var someoneDied = false
@@ -42,6 +45,12 @@ func addPlayer(id:int,playerName:String, headId:int, bodyId:int):
 	playerList.add_child(p,true)
 	if multiplayer.get_unique_id() == 1:
 		p.placeBombAt.connect(placeBombAt)
+
+func removePlayer(id:int):
+	for i in playerList.get_children():
+		if i.playerId == id:
+			endhud.removePlayer(i.playerName) 
+			i.queue_free()
 
 func placeBombAt(id:int, pos:Vector2):
 	var player = getPlayerById(id)

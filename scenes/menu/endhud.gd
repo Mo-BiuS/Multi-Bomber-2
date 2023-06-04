@@ -17,7 +17,7 @@ func _process(delta):
 func addPlayer(str:String):
 	rpc("addPlayerSync", str)
 func removePlayer(str:String):
-	rpc("addPlayerSync", str)
+	rpc("removePlayerSync", str)
 func setWinner(str:String):
 	rpc("setWinnerSync",str)
 func setDraw():
