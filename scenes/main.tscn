@@ -33,3 +33,4 @@ replication_config = SubResource("SceneReplicationConfig_fxfpj")
 [connection signal="createClient" from="connect" to="." method="_on_connect_create_client"]
 [connection signal="createServer" from="connect" to="." method="_on_connect_create_server"]
 [connection signal="startGame" from="lobby" to="." method="_on_lobby_start_game"]
+[connection signal="menu" from="game" to="." method="_on_game_menu"]

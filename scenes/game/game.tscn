@@ -29,4 +29,5 @@ spawn_path = NodePath("../bonusList")
 visible = false
 
 [connection signal="spawnBonusAt" from="arenaHolder" to="." method="_on_arena_holder_spawn_bonus_at"]
+[connection signal="menu" from="endhud" to="." method="_on_endhud_menu"]
 [connection signal="restart" from="endhud" to="." method="_on_endhud_restart"]

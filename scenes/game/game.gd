@@ -18,6 +18,8 @@ var startBomb:int = 1
 var startSpeed:float = 1.0
 var startPower:int = 1
 
+signal menu
+
 func _process(delta):
 	if(multiplayer.get_unique_id() == 1 && state == 1):
 		var someoneDied = false
@@ -70,7 +72,16 @@ func getPlayerById(id:int):
 func setState(value:int):
 	state = value
 	match state:
-		0:pass
+		0:
+			endhud.hide()
+			for i in bonusList.get_children():
+				i.queue_free()
+			for i in bombList.get_children():
+				i.queue_free()
+			for i in playerList.get_children():
+				i.queue_free()
+			for i in arenaHolder.get_children():
+				i.queue_free()
 		1:
 			endhud.hide()
 			rpc("loadMap", mapId)
@@ -130,3 +141,7 @@ func setWinner():
 
 func _on_endhud_restart():
 	setState(1)
+
+
+func _on_endhud_menu():
+	menu.emit()

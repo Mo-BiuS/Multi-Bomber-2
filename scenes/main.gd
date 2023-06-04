@@ -62,3 +62,8 @@ func _on_lobby_start_game():
 		game.addPlayer(i,nameDict[i], lobby.getPlayerHead(i), lobby.getPlayerBody(i))
 	setState(2)
 	game.setState(1)
+
+
+func _on_game_menu():
+	game.setState(0)
+	setState(1)

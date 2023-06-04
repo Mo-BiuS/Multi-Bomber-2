@@ -168,6 +168,8 @@ func collide(dir:int)->bool:
 #===============================================================================
 
 func setDeath():
+	position = destination
+	moving = IDLE
 	isAlive = false
 	disabled = false
 	self.hide()
