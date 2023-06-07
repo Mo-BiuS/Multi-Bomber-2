@@ -4,7 +4,7 @@ extends PanelContainer
 @onready var prev = $MarginContainer/VBoxContainer/HBoxContainer/prev
 @onready var next = $MarginContainer/VBoxContainer/HBoxContainer/next
 
-const maxMap = 1
+const maxMap = 2
 var selectedMap = 0
 
 func _ready():
@@ -32,3 +32,4 @@ func refreshMap():
 	match selectedMap:
 		0:mapName.text = "Arena0 (4p)"
 		1:mapName.text = "Arena1 (8p)"
+		2:mapName.text = "Arena2 (2p)"

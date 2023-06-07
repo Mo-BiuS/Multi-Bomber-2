@@ -48,8 +48,16 @@ func getTagById(id:int):
 	return null
 	
 func _on_start_pressed():
-	startGame.emit()
-	
+	if playerTagContener.get_child_count() <= mapCapacity():
+		startGame.emit()
+
+func mapCapacity()->int:
+	match getMapId():
+		0:return 4
+		1:return 8
+		2:return 2
+		_:return 0
+
 #=====================================================================================
 
 func getMapId()->int: return mapSelector.getMapId()

@@ -12,6 +12,7 @@ const bonusModel = preload("res://scenes/game/bonus.tscn")
 
 const arena0 = preload("res://scenes/game/arena/arena_0.tscn")
 const arena1 = preload("res://scenes/game/arena/arena_1.tscn")
+const arena2 = preload("res://scenes/game/arena/arena_2.tscn")
 
 var state:int = 0
 var mapId:int = 0
@@ -89,7 +90,8 @@ func setState(value:int):
 			for i in bombList.get_children():
 				i.queue_free()
 			for i in playerList.get_children():
-				i.queue_free()
+				endhud.removePlayer(i.playerName)
+			rpc("removePlayerSync")
 			for i in arenaHolder.get_children():
 				i.queue_free()
 		1:
@@ -120,6 +122,7 @@ func setState(value:int):
 	match id :
 		0:map = arena0.instantiate()
 		1:map = arena1.instantiate()
+		2:map = arena2.instantiate()
 	arenaHolder.add_child(map, true)
 
 func placePlayer():
@@ -148,6 +151,10 @@ func setWinner():
 			endhud.setWinner(p.playerName)
 			found = true
 	if !found : endhud.setDraw()
+
+@rpc("authority","call_local") func removePlayerSync():
+	for i in playerList.get_children():
+		i.queue_free()
 	
 
 func _on_endhud_restart():

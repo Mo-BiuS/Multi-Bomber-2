@@ -7,8 +7,8 @@ var bonusType
 
 func init():
 	var type = randi()%100
-	if type < 20 : bonusType = 0
-	if type < 70 : bonusType = 1
+	if type < 15 : bonusType = 0
+	if type < 65 : bonusType = 1
 	else: bonusType = 2
 	
 	region_rect = Rect2i(64,bonusType*32,32,32)
