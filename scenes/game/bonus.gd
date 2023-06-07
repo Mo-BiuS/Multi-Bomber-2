@@ -20,5 +20,5 @@ func _on_area_2d_body_entered(body):
 			match bonusType:
 				0:body.maxBomb+=1
 				1:body.power+=1
-				2:body.speed+=0.5
+				2:body.speed+=0.25
 			queue_free()

@@ -33,6 +33,10 @@ func _process(delta):
 				i.setDeath()
 				someoneDied = true
 		if(someoneDied && alivePlayer() <= 1):setState(2)
+		
+		for i in bombList.get_children():
+			if arenaHolder.isExplosed(i.position/64):
+				i.detonate()
 
 func addPlayer(id:int,playerName:String, headId:int, bodyId:int):
 	rpc("addPlayerSync",id,playerName,headId,bodyId)

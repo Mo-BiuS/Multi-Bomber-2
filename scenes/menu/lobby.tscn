@@ -119,7 +119,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Start"
 
-[connection signal="bodyChanged" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/characterEditor" to="PanelContainer" method="_on_character_editor_body_changed"]
-[connection signal="headChanged" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/characterEditor" to="PanelContainer" method="_on_character_editor_head_changed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/start" to="PanelContainer" method="_on_start_pressed"]
+[connection signal="bodyChanged" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/characterEditor" to="." method="_on_character_editor_body_changed"]
+[connection signal="headChanged" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/characterEditor" to="." method="_on_character_editor_head_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/start" to="PanelContainer" method="_on_start_pressed"]

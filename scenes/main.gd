@@ -12,6 +12,7 @@ var state:int = 0
 func _ready():
 	setState(0)
 
+
 func _on_connect_create_client(n, ip):
 	enet_peer.create_client(ip, PORT)
 	multiplayer.multiplayer_peer = enet_peer
