@@ -5,7 +5,7 @@ var bodyId:int = 0
 var playerName:String = "DEFAULT"
 var playerId:int = 0
 
-var boundaries:Rect2i = Rect2i(0,0,0,0)
+@export var boundaries:Rect2i = Rect2i(0,0,0,0)
 
 @export var disabled = false
 var init:bool = false
@@ -47,14 +47,14 @@ func _ready():
 #===============================================================================
 
 func _process(delta):
-	if(multiplayer.get_unique_id() == playerId && isAlive):
-		hud.show()
-		speedLabel.text = "Speed : "+str(speed)
-		bombLabel.text = "Bombs : "+str(bomb)+"/"+str(maxBomb)
-		powerLabel.text = "Power : "+str(power)
-	else:
-		hud.hide()
-	if(multiplayer.get_unique_id() == 1):
+	if(multiplayer.get_unique_id() == playerId ):
+		if isAlive :
+			hud.show()
+			speedLabel.text = "Speed : "+str(speed)
+			bombLabel.text = "Bombs : "+str(bomb)+"/"+str(maxBomb)
+			powerLabel.text = "Power : "+str(power)
+		else : hud.hide()
+		
 		if destination == position:
 			match moving:
 				UP: 
@@ -77,76 +77,69 @@ func _process(delta):
 			if destination.x == position.x:
 				if destination.y < position.y:
 					if destination.y < position.y-speed:
-						position.y-=speed
+						rpc("setPositionSync",position+Vector2(0,-speed))
 					else:
 						if moving == UP && !collide(UP):
-							position.y-=speed
+							rpc("setPositionSync",position+Vector2(0,-speed))
 							destination+=Vector2(0,-64)
 						else:
-							position = destination
+							rpc("setPositionSync", destination)
 							stopAnim()
 				else:
 					if destination.y > position.y+speed:
-						position.y+=speed
+						rpc("setPositionSync",position+Vector2(0,speed))
 					else:
 						if moving == DOWN && !collide(DOWN):
-							position.y+=speed
+							rpc("setPositionSync",position+Vector2(0,speed))
 							destination+=Vector2(0,64)
 						else:
-							position = destination
+							rpc("setPositionSync", destination)
 							stopAnim()
 			else:
 				if destination.x < position.x:
 					if destination.x < position.x-speed:
-						position.x-=speed
+						rpc("setPositionSync",position+Vector2(-speed,0))
 					else:
 						if moving == LEFT && !collide(LEFT):
-							position.x-=speed
+							rpc("setPositionSync",position+Vector2(-speed,0))
 							destination+=Vector2(-64,0)
 						else:
-							position = destination
+							rpc("setPositionSync", destination)
 							stopAnim()
 				else:
 					if destination.x > position.x+speed:
-						position.x+=speed
+						rpc("setPositionSync",position+Vector2(speed,0))
 					else:
 						if moving == RIGHT && !collide(RIGHT):
-							position.x+=speed
+							rpc("setPositionSync",position+Vector2(speed,0))
 							destination+=Vector2(64,0)
 						else:
-							position = destination
+							rpc("setPositionSync", destination)
 							stopAnim()
+	else:
+		hud.hide()
 
 func _input(event):
 	if(!disabled && playerId == multiplayer.get_unique_id()):
 		if event.is_action_pressed("up"):
-			rpc_id(1,"goUp")
+			moving = UP
 		elif event.is_action_pressed("down"):
-			rpc_id(1,"goDown")
+			moving = DOWN
 		elif event.is_action_pressed("right"):
-			rpc_id(1,"goRight")
+			moving = RIGHT
 		elif event.is_action_pressed("left"):
-			rpc_id(1,"goLeft")
+			moving = LEFT
 		elif event.is_action_released("up") && moving == UP:
-			rpc_id(1,"idle")
+			moving = IDLE
 		elif event.is_action_released("down") && moving == DOWN:
-			rpc_id(1,"idle")
+			moving = IDLE
 		elif event.is_action_released("right") && moving == RIGHT:
-			rpc_id(1,"idle")
+			moving = IDLE
 		elif event.is_action_released("left") && moving == LEFT:
-			rpc_id(1,"idle")
+			moving = IDLE
 		if event.is_action_pressed("bomb"):
-			rpc_id(1,"placeBombAtSync")
+			if isAlive : rpc_id(1,"placeBombAtSync")
 
-@rpc("call_local","any_peer") func goUp():
-	moving = UP
-@rpc("call_local","any_peer") func goDown(): 
-	moving = DOWN
-@rpc("call_local","any_peer") func goRight(): 
-	moving = RIGHT
-@rpc("call_local","any_peer") func goLeft(): 
-	moving = LEFT
-@rpc("call_local","any_peer") func idle(): moving = IDLE
 @rpc("call_local","any_peer") func placeBombAtSync(): placeBombAt.emit(playerId,position)
 
 func collide(dir:int)->bool:
@@ -166,6 +159,10 @@ func collide(dir:int)->bool:
 			RIGHT:return !(int((position.x+64)/64) < int(boundaries.size.x))
 		return false
 
+@rpc("any_peer", "call_local") func setPositionSync(pos:Vector2):
+	position = pos
+@rpc("any_peer", "call_local") func setDestinationSync(pos:Vector2):
+	destination = pos
 #===============================================================================
 
 func setDeath():
@@ -187,15 +184,22 @@ func setDisabled():
 	disabled = true
 
 func stopAnim():
+	rpc("stopAnimSync")
+func playAnim(animName:String):
+	rpc("playAnimSync", animName)
+
+@rpc("call_local","any_peer") func stopAnimSync():
 	head.stop()
 	body.stop()
-func playAnim(animName:String):
+
+@rpc("call_local","any_peer") func playAnimSync(animName:String):
 	head.play(animName)
 	body.play(animName)
-
+	
 func setPosition(pos:Vector2):
-	position = pos
-	destination = pos
+	rpc("setPositionSync",pos)
+	rpc("setDestinationSync",pos)
+	moving = IDLE
 
 func initAnim():
 	head.sprite_frames = SpriteFrames.new()
