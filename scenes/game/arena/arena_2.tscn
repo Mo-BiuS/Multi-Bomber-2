@@ -552,7 +552,7 @@ sources/1 = SubResource("TileSetAtlasSource_dirmi")
 sources/2 = SubResource("TileSetAtlasSource_jqgyc")
 sources/3 = SubResource("TileSetAtlasSource_r7o3q")
 
-[node name="arena1" type="TileMap"]
+[node name="arena2" type="TileMap"]
 texture_filter = 1
 scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_t1ufb")

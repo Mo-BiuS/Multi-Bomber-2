@@ -99,6 +99,7 @@ func setState(value:int):
 			rpc("loadMap", mapId)
 			for i in playerList.get_children():
 				i.maxBomb = startBomb
+				i.bomb = 0
 				i.speed = startSpeed
 				i.power = startPower
 				i.setAlive()

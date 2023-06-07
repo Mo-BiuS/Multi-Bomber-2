@@ -73,6 +73,7 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_ks8m2")
 
 [node name="camera" type="Camera2D" parent="."]
+enabled = false
 
 [node name="name" type="Control" parent="."]
 layout_mode = 3
@@ -128,16 +129,13 @@ layout_mode = 2
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_2xk72")
 theme_override_font_sizes/font_size = 24
-text = "Speed :"
 
 [node name="bomb" type="Label" parent="hud/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_2xk72")
 theme_override_font_sizes/font_size = 24
-text = "Bomb :"
 
 [node name="power" type="Label" parent="hud/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_2xk72")
 theme_override_font_sizes/font_size = 24
-text = "Power :"

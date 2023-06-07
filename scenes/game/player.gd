@@ -52,7 +52,8 @@ func _process(delta):
 		speedLabel.text = "Speed : "+str(speed)
 		bombLabel.text = "Bombs : "+str(bomb)+"/"+str(maxBomb)
 		powerLabel.text = "Power : "+str(power)
-	else : hud.hide()
+	else:
+		hud.hide()
 	if(multiplayer.get_unique_id() == 1):
 		if destination == position:
 			match moving:

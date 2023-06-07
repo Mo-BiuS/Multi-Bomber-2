@@ -1,10 +1,10 @@
-extends PanelContainer
+extends CanvasLayer
 
-@onready var playerTagContener:GridContainer = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/GridContainer
-@onready var startButton:Button = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer/start
+@onready var playerTagContener:GridContainer = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/GridContainer
+@onready var startButton:Button =$PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/start
 
-@onready var mapSelector = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer/mapSelector
-@onready var bonusSelector = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer2/MarginContainer/VBoxContainer/startingBonus 
+@onready var mapSelector =$PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/mapSelector
+@onready var bonusSelector = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/startingBonus
 
 var playerTag = preload("res://scenes/menu/player_tag.tscn")
 
